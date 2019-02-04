@@ -5,8 +5,8 @@ namespace LightPRSensorCalibratedSerial.Tests.Integration
 {
 	public class GreenSenseHardwareTestHelper : HardwareTestHelper
 	{
-		public int SoilMoistureSimulatorPin = 9;
-		public int SoilMoistureSimulatorPowerPin = 3;
+		public int LightSimulatorPin = 9;
+		public int LightSimulatorPowerPin = 3;
 
 		public int DelayAfterTurningLightPRSensorOn = 3;
 
@@ -131,36 +131,36 @@ namespace LightPRSensorCalibratedSerial.Tests.Integration
 		}
 		#endregion
 
-		#region Soil Moisture Simulator Functions
-		public void SimulateSoilMoisture(int soilMoisturePercentage)
+		#region Light light Simulator Functions
+		public void SimulateLight(int lightPercentage)
 		{
 			Console.WriteLine("");
-			Console.WriteLine("Simulating soil moisture percentage");
+			Console.WriteLine("Simulating light percentage");
 			Console.WriteLine("  Sending analog percentage");
-			Console.WriteLine("    PWM pin: " + SoilMoistureSimulatorPin);
-			Console.WriteLine("    Soil Moisture Percentage: " + soilMoisturePercentage + "%");
+			Console.WriteLine("    PWM pin: " + LightSimulatorPin);
+			Console.WriteLine("    Light light Percentage: " + lightPercentage + "%");
 			Console.WriteLine("");
 
-			SimulatorClient.AnalogWritePercentage(SoilMoistureSimulatorPin, soilMoisturePercentage);
+			SimulatorClient.AnalogWritePercentage(LightSimulatorPin, lightPercentage);
 		}
 		#endregion
 
 		#region Wait for Pin Functions
 		public int WaitUntilLightPRSensorPowerPinIs(bool expectedValue)
 		{
-			return WaitUntilSimulatorPinIs("soil moisture sensor power", SoilMoistureSimulatorPowerPin, expectedValue);
+			return WaitUntilSimulatorPinIs("light sensor power", LightSimulatorPowerPin, expectedValue);
 		}
 
 		public double WaitWhileLightPRSensorPowerPinIs(bool expectedValue)
 		{
-			return WaitWhileSimulatorPinIs("soil moisture sensor power", SoilMoistureSimulatorPowerPin, expectedValue);
+			return WaitWhileSimulatorPinIs("light sensor power", LightSimulatorPowerPin, expectedValue);
 		}
 		#endregion
 
 		#region Assert Simulator Pin Functions
 		public void AssertLightPRSensorPowerPinForDuration(bool expectedValue, int durationInSeconds)
 		{
-			AssertSimulatorPinForDuration("soil moisture sensor power", SoilMoistureSimulatorPowerPin, expectedValue, durationInSeconds);
+			AssertSimulatorPinForDuration("light sensor power", LightSimulatorPowerPin, expectedValue, durationInSeconds);
 		}
 		#endregion
 	}

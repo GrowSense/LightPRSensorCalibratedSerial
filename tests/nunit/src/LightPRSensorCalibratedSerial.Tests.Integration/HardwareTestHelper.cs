@@ -39,7 +39,7 @@ namespace LightPRSensorCalibratedSerial.Tests.Integration
 
 		public int ResetTriggerPin = 4;
 
-		public string IrrigatorStartText = "Starting soil moisture monitor";
+		public string IrrigatorStartText = "Starting light (photoresistor) monitor";
 
 		public TimeoutHelper Timeout = new TimeoutHelper();
 
@@ -529,7 +529,7 @@ namespace LightPRSensorCalibratedSerial.Tests.Integration
 		#region Simulator Pin Assert Functions
 		public void AssertSimulatorPinForDuration(string label, int simulatorDigitalPin, bool expectedValue, int durationInSeconds)
 		{
-			Console.WriteLine("Checking soil " + label + " pin for specified duration...");
+			Console.WriteLine("Checking light " + label + " pin for specified duration...");
 			Console.WriteLine("  Expected value: " + expectedValue);
 			Console.WriteLine("  Duration: " + durationInSeconds);
 

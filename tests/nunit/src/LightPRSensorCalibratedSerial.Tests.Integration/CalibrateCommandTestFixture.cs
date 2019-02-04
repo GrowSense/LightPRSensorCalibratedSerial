@@ -6,13 +6,13 @@ namespace LightPRSensorCalibratedSerial.Tests.Integration
 	public class CalibrateCommandTestFixture : BaseTestFixture
 	{
 		[Test]
-		public void Test_CalibrateDryToCurrentSoilMoistureValueCommand_20Percent()
+		public void Test_CalibrateDarkToCurrentLightValueCommand_20Percent()
 		{
 			using (var helper = new CalibrateCommandTestHelper())
 			{
-				helper.Label = "dry";
+				helper.Label = "dark";
 				helper.Letter = "D";
-				helper.SimulatedSoilMoisturePercentage = 20;
+				helper.SimulatedLightPercentage = 20;
 
 				helper.DevicePort = GetDevicePort();
 				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
@@ -25,13 +25,13 @@ namespace LightPRSensorCalibratedSerial.Tests.Integration
 		}
 
 		[Test]
-		public void Test_CalibrateDryToCurrentSoilMoistureValueCommand_30Percent()
+		public void Test_CalibrateDarkToCurrentLightValueCommand_30Percent()
 		{
 			using (var helper = new CalibrateCommandTestHelper())
 			{
-				helper.Label = "dry";
+				helper.Label = "dark";
 				helper.Letter = "D";
-				helper.SimulatedSoilMoisturePercentage = 30;
+				helper.SimulatedLightPercentage = 30;
 
 				helper.DevicePort = GetDevicePort();
 				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
@@ -44,13 +44,13 @@ namespace LightPRSensorCalibratedSerial.Tests.Integration
 		}
 
 		[Test]
-		public void Test_CalibrateDryToSpecifiedValueCommand_200()
+		public void Test_CalibrateDarkToSpecifiedValueCommand_200()
 		{
 			using (var helper = new CalibrateCommandTestHelper())
 			{
-				helper.Label = "dry";
+				helper.Label = "dark";
 				helper.Letter = "D";
-				helper.RawSoilMoistureValue = 200;
+				helper.RawLightValue = 200;
 
 				helper.DevicePort = GetDevicePort();
 				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
@@ -63,13 +63,13 @@ namespace LightPRSensorCalibratedSerial.Tests.Integration
 		}
 
 		[Test]
-		public void Test_CalibrateDryToSpecifiedValueCommand_220()
+		public void Test_CalibrateDarkToSpecifiedValueCommand_220()
 		{
 			using (var helper = new CalibrateCommandTestHelper())
 			{
-				helper.Label = "dry";
+				helper.Label = "dark";
 				helper.Letter = "D";
-				helper.RawSoilMoistureValue = 220;
+				helper.RawLightValue = 220;
 
 				helper.DevicePort = GetDevicePort();
 				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
@@ -82,13 +82,13 @@ namespace LightPRSensorCalibratedSerial.Tests.Integration
 		}
 
 		[Test]
-		public void Test_CalibrateWetToCurrentSoilMoistureValueCommand_80Percent()
+		public void Test_CalibrateBrightToCurrentLightValueCommand_80Percent()
 		{
 			using (var helper = new CalibrateCommandTestHelper())
 			{
-				helper.Label = "wet";
-				helper.Letter = "W";
-				helper.SimulatedSoilMoisturePercentage = 80;
+				helper.Label = "bright";
+				helper.Letter = "B";
+				helper.SimulatedLightPercentage = 80;
 
 				helper.DevicePort = GetDevicePort();
 				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
@@ -101,13 +101,13 @@ namespace LightPRSensorCalibratedSerial.Tests.Integration
 		}
 
 		[Test]
-		public void Test_CalibrateWetToCurrentSoilMoistureValueCommand_90Percent()
+		public void Test_CalibrateBrightToCurrentLightValueCommand_90Percent()
 		{
 			using (var helper = new CalibrateCommandTestHelper())
 			{
-				helper.Label = "wet";
-				helper.Letter = "W";
-				helper.SimulatedSoilMoisturePercentage = 90;
+				helper.Label = "bright";
+				helper.Letter = "B";
+				helper.SimulatedLightPercentage = 90;
 
 				helper.DevicePort = GetDevicePort();
 				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
@@ -120,13 +120,13 @@ namespace LightPRSensorCalibratedSerial.Tests.Integration
 		}
 
 		[Test]
-		public void Test_CalibrateWetToSpecifiedValueCommand_880()
+		public void Test_CalibrateBrightToSpecifiedValueCommand_880()
 		{
 			using (var helper = new CalibrateCommandTestHelper())
 			{
-				helper.Label = "wet";
-				helper.Letter = "W";
-				helper.RawSoilMoistureValue = 880;
+				helper.Label = "bright";
+				helper.Letter = "B";
+				helper.RawLightValue = 880;
 
 				helper.DevicePort = GetDevicePort();
 				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
@@ -139,13 +139,13 @@ namespace LightPRSensorCalibratedSerial.Tests.Integration
 		}
 
 		[Test]
-		public void Test_CalibrateWetToSpecifiedValueCommand_900()
+		public void Test_CalibrateBrightToSpecifiedValueCommand_900()
 		{
 			using (var helper = new CalibrateCommandTestHelper())
 			{
-				helper.Label = "wet";
-				helper.Letter = "W";
-				helper.RawSoilMoistureValue = 900;
+				helper.Label = "bright";
+				helper.Letter = "B";
+				helper.RawLightValue = 900;
 
 				helper.DevicePort = GetDevicePort();
 				helper.DeviceBaudRate = GetDeviceSerialBaudRate();

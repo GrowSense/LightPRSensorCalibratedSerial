@@ -27,14 +27,14 @@ namespace LightPRSensorCalibratedSerial.Tests.Integration
 			}
 		}
 
-		public void RunFullScaleTestSegment(int soilMoisturePercentage)
+		public void RunFullScaleTestSegment(int lightPercentage)
 		{
 			WriteSubTitleText("Starting full scale test segment");
 
-			Console.WriteLine("Soil moisture: " + soilMoisturePercentage + "%");
+			Console.WriteLine("Light: " + lightPercentage + "%");
 			Console.WriteLine("");
 
-			SimulateSoilMoisture(soilMoisturePercentage);
+			SimulateLight(lightPercentage);
 
 			var data = WaitForData(3); // Wait for 3 data entries to give the simulator time to stabilise
 
@@ -42,13 +42,13 @@ namespace LightPRSensorCalibratedSerial.Tests.Integration
 			Console.WriteLine("Checking calibrated value");
 			Console.WriteLine("");
 
-			AssertDataValueIsWithinRange(data[data.Length - 1], "C", soilMoisturePercentage, CalibratedValueMarginOfError);
+			AssertDataValueIsWithinRange(data[data.Length - 1], "C", lightPercentage, CalibratedValueMarginOfError);
 
 			Console.WriteLine("");
 			Console.WriteLine("Checking raw value");
 			Console.WriteLine("");
 
-			var expectedRawValue = soilMoisturePercentage * AnalogPinMaxValue / 100;
+			var expectedRawValue = lightPercentage * AnalogPinMaxValue / 100;
 
 			AssertDataValueIsWithinRange(data[data.Length - 1], "R", expectedRawValue, RawValueMarginOfError);
 		}

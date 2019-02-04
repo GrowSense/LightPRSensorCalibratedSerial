@@ -6,7 +6,7 @@ namespace LightPRSensorCalibratedSerial.Tests.Integration
 	{
 		public string Label;
 		public string Letter;
-		public int RawSoilMoistureValue = 0;
+		public int RawLightValue = 0;
 
 		public void TestCalibrationEEPROM()
 		{
@@ -26,12 +26,12 @@ namespace LightPRSensorCalibratedSerial.Tests.Integration
 
 			var dataEntry = WaitForDataEntry ();
 
-			AssertDataValueEquals(dataEntry, Letter, RawSoilMoistureValue);
+			AssertDataValueEquals(dataEntry, Letter, RawLightValue);
 		}
 
 		public void SendCalibrationCommand()
 		{
-			var command = Letter + RawSoilMoistureValue;
+			var command = Letter + RawLightValue;
 
 			WriteParagraphTitleText("Sending calibration command...");
 
@@ -41,7 +41,7 @@ namespace LightPRSensorCalibratedSerial.Tests.Integration
 
 			WriteParagraphTitleText("Checking calibration value...");
 
-			AssertDataValueEquals(dataEntry, Letter, RawSoilMoistureValue);
+			AssertDataValueEquals(dataEntry, Letter, RawLightValue);
 		}
 	}
 }

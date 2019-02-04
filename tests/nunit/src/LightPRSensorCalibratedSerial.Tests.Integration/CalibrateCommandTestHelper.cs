@@ -7,8 +7,8 @@ namespace LightPRSensorCalibratedSerial.Tests.Integration
 	{
 		public string Label;
 		public string Letter;
-		public int SimulatedSoilMoisturePercentage = -1;
-		public int RawSoilMoistureValue = 0;
+		public int SimulatedLightPercentage = -1;
+		public int RawLightValue = 0;
 
 		public CalibrateCommandTestHelper()
 		{
@@ -18,25 +18,25 @@ namespace LightPRSensorCalibratedSerial.Tests.Integration
 		{
 			WriteTitleText("Starting calibrate " + Label + " command test");
 
-			Console.WriteLine("Simulated soil moisture: " + SimulatedSoilMoisturePercentage + "%");
+			Console.WriteLine("Simulated light: " + SimulatedLightPercentage + "%");
 
-			if (RawSoilMoistureValue == 0)
-				RawSoilMoistureValue = SimulatedSoilMoisturePercentage * AnalogPinMaxValue / 100;
+			if (RawLightValue == 0)
+				RawLightValue = SimulatedLightPercentage * AnalogPinMaxValue / 100;
 
-			Console.WriteLine("Raw soil moisture value: " + RawSoilMoistureValue);
+			Console.WriteLine("Raw light value: " + RawLightValue);
 			Console.WriteLine("");
 
-			var simulatorIsNeeded = SimulatedSoilMoisturePercentage > -1;
+			var simulatorIsNeeded = SimulatedLightPercentage > -1;
 
 			ConnectDevices(simulatorIsNeeded);
 
 			if (SimulatorIsEnabled)
 			{
-				SimulateSoilMoisture(SimulatedSoilMoisturePercentage);
+				SimulateLight(SimulatedLightPercentage);
 
 				var values = WaitForData(4); // Wait for 4 data entries to give the simulator time to stabilise
 
-				AssertDataValueIsWithinRange(values[values.Length - 1], "R", RawSoilMoistureValue, RawValueMarginOfError);
+				AssertDataValueIsWithinRange(values[values.Length - 1], "R", RawLightValue, RawValueMarginOfError);
 			}
 
 			SendCalibrationCommand();
@@ -48,17 +48,17 @@ namespace LightPRSensorCalibratedSerial.Tests.Integration
 
 			// If the simulator isn't enabled then the raw value is passed as part of the command to specify it directly
 			if (!SimulatorIsEnabled)
-				command = command + RawSoilMoistureValue;
+				command = command + RawLightValue;
 
 			SendDeviceCommand(command);
 
-			var data = WaitForData(4); // Wait for 4 data entries to let the soil moisture simulator stabilise
+			var data = WaitForData(4); // Wait for 4 data entries to let the light simulator stabilise
 
-			// If using the soil moisture simulator then the value needs to be within a specified range
+			// If using the light simulator then the value needs to be within a specified range
 			if (SimulatorIsEnabled)
-				AssertDataValueIsWithinRange(data[data.Length - 1], Letter, RawSoilMoistureValue, RawValueMarginOfError);
+				AssertDataValueIsWithinRange(data[data.Length - 1], Letter, RawLightValue, RawValueMarginOfError);
 			else // Otherwise it needs to be exact
-				AssertDataValueEquals(data[data.Length - 1], Letter, RawSoilMoistureValue);
+				AssertDataValueEquals(data[data.Length - 1], Letter, RawLightValue);
 		}
 	}
 }

@@ -14,13 +14,13 @@ namespace LightPRSensorCalibratedSerial.Tests.Integration
 	public class CalibrationEEPROMTestFixture : BaseTestFixture
 	{
 		[Test]
-		public void Test_CalibrateDryEEPROM_10()
+		public void Test_CalibrateDarkEEPROM_10()
 		{
 			using (var helper = new CalibrationEEPROMTestHelper())
 			{
-				helper.Label = "dry";
+				helper.Label = "dark";
 				helper.Letter = "D";
-				helper.RawSoilMoistureValue = 10;
+				helper.RawLightValue = 10;
 
 				helper.DevicePort = GetDevicePort();
 				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
@@ -33,13 +33,13 @@ namespace LightPRSensorCalibratedSerial.Tests.Integration
 		}
 
 		[Test]
-		public void Test_CalibrateDryEEPROM_200()
+		public void Test_CalibrateDarkEEPROM_200()
 		{
 			using (var helper = new CalibrationEEPROMTestHelper())
 			{
-				helper.Label = "dry";
+				helper.Label = "dark";
 				helper.Letter = "D";
-				helper.RawSoilMoistureValue = 200;
+				helper.RawLightValue = 200;
 
 				helper.DevicePort = GetDevicePort();
 				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
@@ -52,13 +52,13 @@ namespace LightPRSensorCalibratedSerial.Tests.Integration
 		}
 
 		[Test]
-		public void Test_CalibrateWetEEPROM_950()
+		public void Test_CalibrateBrightEEPROM_950()
 		{
 			using (var helper = new CalibrationEEPROMTestHelper())
 			{
-				helper.Label = "wet";
-				helper.Letter = "W";
-				helper.RawSoilMoistureValue = 950;
+				helper.Label = "bright";
+				helper.Letter = "B";
+				helper.RawLightValue = 950;
 
 				helper.DevicePort = GetDevicePort();
 				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
@@ -71,13 +71,13 @@ namespace LightPRSensorCalibratedSerial.Tests.Integration
 		}
 
 		[Test]
-		public void Test_CalibrateWetEEPROM_1020()
+		public void Test_CalibrateBrightEEPROM_1020()
 		{
 			using (var helper = new CalibrationEEPROMTestHelper())
 			{
-				helper.Label = "wet";
-				helper.Letter = "W";
-				helper.RawSoilMoistureValue = 1020;
+				helper.Label = "bright";
+				helper.Letter = "B";
+				helper.RawLightValue = 1020;
 
 				helper.DevicePort = GetDevicePort();
 				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
