@@ -35,10 +35,10 @@ pipeline {
                 sh 'sh inject-version.sh'
             }
         }
-        stage('Build') {
+        stage('Build Tests') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'echo "Skipping build. Build will occur during upload" #sh build-uno.sh'
+                sh 'sh build-tests.sh'
             }
         }
         stage('Upload') {
