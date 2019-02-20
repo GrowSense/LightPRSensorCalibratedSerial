@@ -7,6 +7,11 @@ pipeline {
         disableConcurrentBuilds();
     }
     stages {
+        stage('CleanWS') {
+            steps {
+                deleteDir()
+            }
+        }
         stage('Checkout') {
             steps {
                 checkout scm
@@ -33,7 +38,7 @@ pipeline {
         stage('Build') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh build-uno.sh'
+                sh 'echo "Skipping build. Build will occur during upload" #sh build-uno.sh'
             }
         }
         stage('Upload') {
