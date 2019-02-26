@@ -16,6 +16,8 @@ pipeline {
                 sh "git fetch --no-tags"
                 sh 'git checkout $BRANCH_NAME'
                 sh 'git pull origin $BRANCH_NAME'
+                sh 'echo "Light (photoresistor) monitor port: ${LIGHT_PR_MONITOR_PORT}"'
+                sh 'echo "Light (photoresistor) simulator port: ${LIGHT_PR_MONITOR_SIMULATOR_PORT}"'
             }
         }
         stage('Prepare') {
