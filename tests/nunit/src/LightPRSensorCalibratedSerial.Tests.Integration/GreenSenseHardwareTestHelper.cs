@@ -10,7 +10,7 @@ namespace LightPRSensorCalibratedSerial.Tests.Integration
 
 		public int DelayAfterTurningLightPRSensorOn = 3;
 
-		public int RawValueMarginOfError = 27;
+		public int RawValueMarginOfError = 33;
 		public int CalibratedValueMarginOfError = 3;
 		public double TimeErrorMargin = 0.2;
 
