@@ -186,9 +186,8 @@ namespace LightPRSensorCalibratedSerial.Tests.Integration
 			// Give the pin some time at LOW to ensure reset
 			Thread.Sleep (10);
 
-			// Change the reset trigger pin to an input to go back to normal
-			// TODO: Implement a cleaner way to do this
-			SimulatorClient.DigitalRead (ResetTriggerPin);
+			// Cancel the reset
+      SimulatorClient.PinMode (ResetTriggerPin, PinMode.INPUT_PULLUP);
 
 			// Re-open the connection to the device
 			ConnectDevice ();
