@@ -134,7 +134,7 @@ void serialPrintData()
       Serial.print("B:");
       Serial.print(brightCalibrationValue);
       Serial.print(";");
-      Serial.print("Z:");
+      Serial.print("V:");
       Serial.print(VERSION);
       Serial.print(";;");
       Serial.println();
