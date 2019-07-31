@@ -6,15 +6,15 @@
 #include "Common.h"
 #include "LightPRSensor.h"
 
-#define SERIAL_MODE_CALIBRATED 1
-#define SERIAL_MODE_RAW 2
-#define SERIAL_MODE_CSV 3
-#define SERIAL_MODE_QUERYSTRING 4
+//#define SERIAL_MODE_CALIBRATED 1
+//#define SERIAL_MODE_RAW 2
+//#define SERIAL_MODE_CSV 3
+//#define SERIAL_MODE_QUERYSTRING 4
 
 #define VERSION "1-0-0-0"
 #define BOARD_TYPE "uno"
 
-int serialMode = SERIAL_MODE_CSV;
+//int serialMode = SERIAL_MODE_CSV;
 
 void setup()
 {
@@ -135,8 +135,8 @@ void serialPrintData()
   
     long numberOfSecondsOnline = millis()/1000;
 
-    if (serialMode == SERIAL_MODE_CSV)
-    {
+ //   if (serialMode == SERIAL_MODE_CSV)
+ //   {
       Serial.print("D;"); // This prefix indicates that the line contains data.
       //Serial.print("T:");
       //Serial.print(numberOfSecondsOnline);
@@ -160,7 +160,7 @@ void serialPrintData()
       Serial.print(VERSION);
       Serial.print(";;");
       Serial.println();
-    }
+ /*   }
     else if (serialMode == SERIAL_MODE_QUERYSTRING)
     {
       //Serial.print("time=");
@@ -189,13 +189,13 @@ void serialPrintData()
     else if (serialMode == SERIAL_MODE_RAW)
     {
       Serial.println(soilMoistureLevelRaw);
-    }
+    }*/
 
     lastSerialOutputTime = millis();
   }
   else
   {
-    if (isDebugMode)
+    /*if (isDebugMode)
     {    
       Serial.println("Not ready to serial print data");
 
@@ -212,6 +212,6 @@ void serialPrintData()
       Serial.print("  Is ready to print data: ");
       Serial.println(isReadyToPrintData);
 
-    }
+    }*/
   }
 }
