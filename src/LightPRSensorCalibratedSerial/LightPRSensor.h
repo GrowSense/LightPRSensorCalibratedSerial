@@ -4,7 +4,7 @@
 extern int soilMoistureLevelCalibrated;
 extern int soilMoistureLevelRaw;
 
-extern long lastLightPRSensorReadingTime;
+extern unsigned long lastLightPRSensorReadingTime;
 extern long lightPRSensorReadingIntervalInSeconds;
 extern int lightPRSensorReadIntervalIsSetFlagAddress;
 
@@ -12,7 +12,7 @@ extern int darkCalibrationValue;
 extern int brightCalibrationValue;
 
 extern bool lightPRSensorIsOn;
-extern long lastSensorOnTime;
+extern unsigned long lastSensorOnTime;
 extern int delayAfterTurningSensorOn;
 extern bool lightPRSensorReadingHasBeenTaken;
 

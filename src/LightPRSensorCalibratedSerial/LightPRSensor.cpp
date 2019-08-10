@@ -10,12 +10,12 @@
 #define lightPRSensorPowerPin 12
 
 bool lightPRSensorIsOn = true;
-long lastSensorOnTime = 0;
+unsigned long lastSensorOnTime = 0;
 int delayAfterTurningLightPRSensorOn = 3 * 1000;
 
 bool lightPRSensorReadingHasBeenTaken = false;
 long lightPRSensorReadingIntervalInSeconds = 5;
-long lastLightPRSensorReadingTime = 0; // Milliseconds
+unsigned long lastLightPRSensorReadingTime = 0; // Milliseconds
 
 int soilMoistureLevelCalibrated = 0;
 int soilMoistureLevelRaw = 0;
