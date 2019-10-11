@@ -48,7 +48,7 @@
     <Compile Include="ReadIntervalCommandTestFixture.cs" />
     <Compile Include="HardwareTestHelper.cs" />
     <Compile Include="CalibrateCommandTestHelper.cs" />
-    <Compile Include="GreenSenseHardwareTestHelper.cs" />
+    <Compile Include="GrowSenseHardwareTestHelper.cs" />
     <Compile Include="ReadIntervalCommandTestHelper.cs" />
     <Compile Include="FullScaleMonitorTestHelper.cs" />
     <Compile Include="SerialOutputTimeTestFixture.cs" />

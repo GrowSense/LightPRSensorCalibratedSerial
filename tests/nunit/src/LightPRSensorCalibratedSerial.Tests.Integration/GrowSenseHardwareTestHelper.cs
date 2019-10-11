@@ -3,7 +3,7 @@ using System.Threading;
 using NUnit.Framework;
 namespace LightPRSensorCalibratedSerial.Tests.Integration
 {
-	public class GreenSenseHardwareTestHelper : HardwareTestHelper
+	public class GrowSenseHardwareTestHelper : HardwareTestHelper
 	{
 		public int LightSimulatorPin = 9;
 		public int LightSimulatorPowerPin = 3;
@@ -16,7 +16,7 @@ namespace LightPRSensorCalibratedSerial.Tests.Integration
 
 		public bool CalibrationIsReversedByDefault = true;
 
-		public GreenSenseHardwareTestHelper()
+		public GrowSenseHardwareTestHelper()
 		{
 		}
 
