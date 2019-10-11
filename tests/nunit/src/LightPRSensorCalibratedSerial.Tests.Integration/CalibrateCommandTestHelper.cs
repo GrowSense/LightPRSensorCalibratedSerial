@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace LightPRSensorCalibratedSerial.Tests.Integration
 {
-	public class CalibrateCommandTestHelper : GreenSenseHardwareTestHelper
+	public class CalibrateCommandTestHelper : GrowSenseHardwareTestHelper
 	{
 		public string Label;
 		public string Letter;

@@ -3,7 +3,7 @@ using System.Threading;
 using NUnit.Framework;
 namespace LightPRSensorCalibratedSerial.Tests.Integration
 {
-	public class LightPRSensorPowerTestHelper : GreenSenseHardwareTestHelper
+	public class LightPRSensorPowerTestHelper : GrowSenseHardwareTestHelper
 	{
 		public int ReadInterval = 1;
 

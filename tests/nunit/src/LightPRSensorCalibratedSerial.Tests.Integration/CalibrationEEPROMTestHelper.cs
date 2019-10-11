@@ -2,7 +2,7 @@
 
 namespace LightPRSensorCalibratedSerial.Tests.Integration
 {
-	public class CalibrationEEPROMTestHelper : GreenSenseHardwareTestHelper
+	public class CalibrationEEPROMTestHelper : GrowSenseHardwareTestHelper
 	{
 		public string Label;
 		public string Letter;
