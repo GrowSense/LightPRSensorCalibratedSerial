@@ -1,8 +1,8 @@
 #ifndef SOILMOISTURESENSOR_H_
 #define SOILMOISTURESENSOR_H_
 
-extern int soilMoistureLevelCalibrated;
-extern int soilMoistureLevelRaw;
+extern int lightLevelCalibrated;
+extern int lightLevelRaw;
 
 extern unsigned long lastLightPRSensorReadingTime;
 extern long lightPRSensorReadingIntervalInSeconds;
@@ -30,17 +30,12 @@ void takeLightPRSensorReading();
 
 double getAverageLightPRSensorReading();
 
-double calculateSoilMoistureLevel(int lightPRSensorReading);
-
-void setEEPROMIsCalibratedFlag();
+double calculateLightLevel(int lightPRSensorReading);
 
 void setLightPRSensorReadingInterval(char* msg);
 void setLightPRSensorReadingInterval(long readInterval);
 
 long getLightPRSensorReadingInterval();
-
-void setEEPROMLightPRSensorReadingIntervalIsSetFlag();
-void removeEEPROMLightPRSensorReadingIntervalIsSetFlag();
 
 void setDarkCalibrationValue(char* msg);
 
@@ -54,18 +49,14 @@ void setBrightCalibrationValueToCurrent();
 
 void setBrightCalibrationValue(int brightCalibrationValue);
 
-void reverseSoilMoistureCalibrationValues();
+void reverseLightCalibrationValues();
 
 int getDarkCalibrationValue();
 
 int getBrightCalibrationValue();
 
-void setEEPROMIsCalibratedFlag();
-
-void removeEEPROMIsCalibratedFlag();
-
 void restoreDefaultLightPRSensorSettings();
 void restoreDefaultLightPRSensorReadingIntervalSettings();
 void restoreDefaultCalibrationSettings();
 #endif
-/* SOILMOISTURESENSOR_H_ */
+/* LIGHTPRSENSOR */

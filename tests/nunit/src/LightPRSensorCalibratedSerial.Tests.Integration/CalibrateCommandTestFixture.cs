@@ -2,159 +2,79 @@
 
 namespace LightPRSensorCalibratedSerial.Tests.Integration
 {
-	[TestFixture(Category = "Integration")]
-	public class CalibrateCommandTestFixture : BaseTestFixture
-	{
-		[Test]
-		public void Test_CalibrateDarkToCurrentLightValueCommand_20Percent()
-		{
-			using (var helper = new CalibrateCommandTestHelper())
-			{
-				helper.Label = "dark";
-				helper.Letter = "D";
-				helper.SimulatedLightPercentage = 20;
+  [TestFixture(Category = "Integration")]
+  public class CalibrateCommandTestFixture : BaseTestFixture
+  {
+    [Test]
+    public void Test_CalibrateDarkCommand_200 ()
+    {
+      using (var helper = new CalibrateCommandTestHelper()) {
+        helper.Label = "dark";
+        helper.Key = "D";
+        helper.RawLightValue = 200;
 
-				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
+        helper.DevicePort = GetDevicePort ();
+        helper.DeviceBaudRate = GetDeviceSerialBaudRate ();
 
-				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = GetSimulatorSerialBaudRate();
+        helper.SimulatorPort = GetSimulatorPort ();
+        helper.SimulatorBaudRate = GetSimulatorSerialBaudRate ();
 
-				helper.TestCalibrateCommand();
-			}
-		}
+        helper.TestCalibrateCommand ();
+      }
+    }
 
-		[Test]
-		public void Test_CalibrateDarkToCurrentLightValueCommand_30Percent()
-		{
-			using (var helper = new CalibrateCommandTestHelper())
-			{
-				helper.Label = "dark";
-				helper.Letter = "D";
-				helper.SimulatedLightPercentage = 30;
+    [Test]
+    public void Test_CalibrateDarkCommand_220 ()
+    {
+      using (var helper = new CalibrateCommandTestHelper()) {
+        helper.Label = "dark";
+        helper.Key = "D";
+        helper.RawLightValue = 220;
 
-				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
+        helper.DevicePort = GetDevicePort ();
+        helper.DeviceBaudRate = GetDeviceSerialBaudRate ();
 
-				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = GetSimulatorSerialBaudRate();
+        helper.SimulatorPort = GetSimulatorPort ();
+        helper.SimulatorBaudRate = GetSimulatorSerialBaudRate ();
 
-				helper.TestCalibrateCommand();
-			}
-		}
+        helper.TestCalibrateCommand ();
+      }
+    }
 
-		[Test]
-		public void Test_CalibrateDarkToSpecifiedValueCommand_200()
-		{
-			using (var helper = new CalibrateCommandTestHelper())
-			{
-				helper.Label = "dark";
-				helper.Letter = "D";
-				helper.RawLightValue = 200;
+    [Test]
+    public void Test_CalibrateBrightCommand_880 ()
+    {
+      using (var helper = new CalibrateCommandTestHelper()) {
+        helper.Label = "bright";
+        helper.Key = "B";
+        helper.RawLightValue = 880;
 
-				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
+        helper.DevicePort = GetDevicePort ();
+        helper.DeviceBaudRate = GetDeviceSerialBaudRate ();
 
-				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = GetSimulatorSerialBaudRate();
+        helper.SimulatorPort = GetSimulatorPort ();
+        helper.SimulatorBaudRate = GetSimulatorSerialBaudRate ();
 
-				helper.TestCalibrateCommand();
-			}
-		}
+        helper.TestCalibrateCommand ();
+      }
+    }
 
-		[Test]
-		public void Test_CalibrateDarkToSpecifiedValueCommand_220()
-		{
-			using (var helper = new CalibrateCommandTestHelper())
-			{
-				helper.Label = "dark";
-				helper.Letter = "D";
-				helper.RawLightValue = 220;
+    [Test]
+    public void Test_CalibrateBrightCommand_900 ()
+    {
+      using (var helper = new CalibrateCommandTestHelper()) {
+        helper.Label = "bright";
+        helper.Key = "B";
+        helper.RawLightValue = 900;
 
-				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
+        helper.DevicePort = GetDevicePort ();
+        helper.DeviceBaudRate = GetDeviceSerialBaudRate ();
 
-				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = GetSimulatorSerialBaudRate();
+        helper.SimulatorPort = GetSimulatorPort ();
+        helper.SimulatorBaudRate = GetSimulatorSerialBaudRate ();
 
-				helper.TestCalibrateCommand();
-			}
-		}
-
-		[Test]
-		public void Test_CalibrateBrightToCurrentLightValueCommand_80Percent()
-		{
-			using (var helper = new CalibrateCommandTestHelper())
-			{
-				helper.Label = "bright";
-				helper.Letter = "B";
-				helper.SimulatedLightPercentage = 80;
-
-				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
-
-				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = GetSimulatorSerialBaudRate();
-
-				helper.TestCalibrateCommand();
-			}
-		}
-
-		[Test]
-		public void Test_CalibrateBrightToCurrentLightValueCommand_90Percent()
-		{
-			using (var helper = new CalibrateCommandTestHelper())
-			{
-				helper.Label = "bright";
-				helper.Letter = "B";
-				helper.SimulatedLightPercentage = 90;
-
-				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
-
-				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = GetSimulatorSerialBaudRate();
-
-				helper.TestCalibrateCommand();
-			}
-		}
-
-		[Test]
-		public void Test_CalibrateBrightToSpecifiedValueCommand_880()
-		{
-			using (var helper = new CalibrateCommandTestHelper())
-			{
-				helper.Label = "bright";
-				helper.Letter = "B";
-				helper.RawLightValue = 880;
-
-				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
-
-				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = GetSimulatorSerialBaudRate();
-
-				helper.TestCalibrateCommand();
-			}
-		}
-
-		[Test]
-		public void Test_CalibrateBrightToSpecifiedValueCommand_900()
-		{
-			using (var helper = new CalibrateCommandTestHelper())
-			{
-				helper.Label = "bright";
-				helper.Letter = "B";
-				helper.RawLightValue = 900;
-
-				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
-
-				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = GetSimulatorSerialBaudRate();
-
-				helper.TestCalibrateCommand();
-			}
-		}
-	}
+        helper.TestCalibrateCommand ();
+      }
+    }
+  }
 }

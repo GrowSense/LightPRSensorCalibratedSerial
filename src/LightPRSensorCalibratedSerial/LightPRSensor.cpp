@@ -1,9 +1,10 @@
 #include <Arduino.h>
 #include <EEPROM.h>
 
-#include <duinocom.h>
+#include <duinocom2.h>
 
 #include "Common.h"
+#include "EEPROMHelper.h"
 #include "LightPRSensor.h"
 
 #define lightPRSensorPin A0
@@ -17,8 +18,8 @@ bool lightPRSensorReadingHasBeenTaken = false;
 long lightPRSensorReadingIntervalInSeconds = 5;
 unsigned long lastLightPRSensorReadingTime = 0; // Milliseconds
 
-int soilMoistureLevelCalibrated = 0;
-int soilMoistureLevelRaw = 0;
+int lightLevelCalibrated = 0;
+int lightLevelRaw = 0;
 
 bool reverseLightPRSensor = false;
 //int darkCalibrationValue = ANALOG_MAX;
@@ -75,7 +76,7 @@ void turnLightPRSensorOff()
 /* Sensor Readings */
 void takeLightPRSensorReading()
 {
-  bool sensorReadingIsDue = lastLightPRSensorReadingTime + secondsToMilliseconds(lightPRSensorReadingIntervalInSeconds) < millis()
+  bool sensorReadingIsDue = millis() - lastLightPRSensorReadingTime >= secondsToMilliseconds(lightPRSensorReadingIntervalInSeconds)
     || lastLightPRSensorReadingTime == 0;
 
   if (sensorReadingIsDue)
@@ -87,13 +88,13 @@ void takeLightPRSensorReading()
   
   	bool sensorIsOffAndNeedsToBeTurnedOn = !lightPRSensorIsOn && sensorGetsTurnedOff;
   
-  	bool postSensorOnDelayHasPast = lastSensorOnTime + delayAfterTurningLightPRSensorOn < millis();
+  	bool postSensorOnDelayHasPast = millis() - lastSensorOnTime >= delayAfterTurningLightPRSensorOn;
   
   	bool lightPRSensorIsOnAndReady = lightPRSensorIsOn && (postSensorOnDelayHasPast || !sensorGetsTurnedOff);
 
     bool lightPRSensorIsOnButSettling = lightPRSensorIsOn && !postSensorOnDelayHasPast && sensorGetsTurnedOff;
 
-    if (isDebugMode)
+    /*if (isDebugMode)
     {
         Serial.print("  Sensor is on: ");
         Serial.println(lightPRSensorIsOn);
@@ -127,7 +128,7 @@ void takeLightPRSensorReading()
           Serial.print(millisecondsToSecondsWithDecimal(timeRemainingToSettle));
           Serial.println(" seconds");
         }
-    }
+    }*/
 
     if (sensorIsOffAndNeedsToBeTurnedOn)
     {
@@ -150,15 +151,15 @@ void takeLightPRSensorReading()
       if (sensorGetsTurnedOff)
         lastLightPRSensorReadingTime = lastLightPRSensorReadingTime - delayAfterTurningLightPRSensorOn;
 
-      soilMoistureLevelRaw = getAverageLightPRSensorReading();
+      lightLevelRaw = getAverageLightPRSensorReading();
 
-      soilMoistureLevelCalibrated = calculateSoilMoistureLevel(soilMoistureLevelRaw);
+      lightLevelCalibrated = calculateLightLevel(lightLevelRaw);
 
-      if (soilMoistureLevelCalibrated < 0)
-        soilMoistureLevelCalibrated = 0;
+      if (lightLevelCalibrated < 0)
+        lightLevelCalibrated = 0;
 
-      if (soilMoistureLevelCalibrated > 100)
-        soilMoistureLevelCalibrated = 100;
+      if (lightLevelCalibrated > 100)
+        lightLevelCalibrated = 100;
 
       lightPRSensorReadingHasBeenTaken = true;
 
@@ -168,7 +169,7 @@ void takeLightPRSensorReading()
       }
     }
   }
-  else
+  /*else
   {
     if (isDebugMode)
     {
@@ -187,7 +188,7 @@ void takeLightPRSensorReading()
       Serial.print(millisecondsToSecondsWithDecimal(timeLeftUntilNextReading));
       Serial.println(" seconds");
     }
-  }
+  }*/
 }
 
 double getAverageLightPRSensorReading()
@@ -207,7 +208,7 @@ double getAverageLightPRSensorReading()
   return averageReading;
 }
 
-double calculateSoilMoistureLevel(int lightPRSensorReading)
+double calculateLightLevel(int lightPRSensorReading)
 {
   return map(lightPRSensorReading, darkCalibrationValue, brightCalibrationValue, 0, 100);
 }
@@ -215,9 +216,7 @@ double calculateSoilMoistureLevel(int lightPRSensorReading)
 /* Reading interval */
 void setupLightPRSensorReadingInterval()
 {
-  bool eepromIsSet = EEPROM.read(lightPRSensorReadIntervalIsSetFlagAddress) == 99;
-
-  if (eepromIsSet)
+  if (EEPROMFlagIsSet(lightPRSensorReadIntervalIsSetFlagAddress))
   {
     if (isDebugMode)
     	Serial.println("EEPROM read interval value has been set. Loading.");
@@ -248,7 +247,7 @@ void setLightPRSensorReadingInterval(long newValue)
 
   EEPROMWriteLong(lightPRSensorReadingIntervalAddress, newValue);
 
-  setEEPROMLightPRSensorReadingIntervalIsSetFlag();
+  EEPROMSetFlag(lightPRSensorReadIntervalIsSetFlagAddress);
 
   lightPRSensorReadingIntervalInSeconds = newValue; 
 
@@ -277,23 +276,10 @@ long getLightPRSensorReadingInterval()
   }
 }
 
-void setEEPROMLightPRSensorReadingIntervalIsSetFlag()
-{
-  if (EEPROM.read(lightPRSensorReadIntervalIsSetFlagAddress) != 99)
-    EEPROM.write(lightPRSensorReadIntervalIsSetFlagAddress, 99);
-}
-
-void removeEEPROMLightPRSensorReadingIntervalIsSetFlag()
-{
-    EEPROM.write(lightPRSensorReadIntervalIsSetFlagAddress, 0);
-}
-
 /* Calibration */
 void setupCalibrationValues()
 {
-  bool eepromIsSet = EEPROM.read(lightPRSensorIsCalibratedFlagAddress) == 99;
-
-  if (eepromIsSet)
+  if (EEPROMFlagIsSet(lightPRSensorIsCalibratedFlagAddress))
   {
     if (isDebugMode)
     	Serial.println("EEPROM calibration values have been set. Loading.");
@@ -301,14 +287,14 @@ void setupCalibrationValues()
     darkCalibrationValue = getDarkCalibrationValue();
     brightCalibrationValue = getBrightCalibrationValue();
   }
-  else
+  /*else
   {
     if (isDebugMode)
       Serial.println("EEPROM calibration values have not been set. Using defaults.");
     
     //setDarkCalibrationValue(darkCalibrationValue);
     //setBrightCalibrationValue(brightCalibrationValue);
-  }
+  }*/
 }
 
 void setDarkCalibrationValue(char* msg)
@@ -332,7 +318,7 @@ void setDarkCalibrationValueToCurrent()
 {
   lastLightPRSensorReadingTime = 0;
   takeLightPRSensorReading();
-  setDarkCalibrationValue(soilMoistureLevelRaw);
+  setDarkCalibrationValue(lightLevelRaw);
 }
 
 void setDarkCalibrationValue(int newValue)
@@ -347,7 +333,7 @@ void setDarkCalibrationValue(int newValue)
   
   EEPROMWriteLong(darkCalibrationValueAddress, newValue); // Must divide by 4 to make it fit in eeprom
 
-  setEEPROMIsCalibratedFlag();
+  EEPROMSetFlag(lightPRSensorIsCalibratedFlagAddress);
 }
 
 void setBrightCalibrationValue(char* msg)
@@ -371,7 +357,7 @@ void setBrightCalibrationValueToCurrent()
 {
   lastLightPRSensorReadingTime = 0;
   takeLightPRSensorReading();
-  setBrightCalibrationValue(soilMoistureLevelRaw);
+  setBrightCalibrationValue(lightLevelRaw);
 }
 
 void setBrightCalibrationValue(int newValue)
@@ -386,10 +372,10 @@ void setBrightCalibrationValue(int newValue)
 
   EEPROMWriteLong(brightCalibrationValueAddress, newValue);
   
-  setEEPROMIsCalibratedFlag();
+  EEPROMSetFlag(lightPRSensorIsCalibratedFlagAddress);
 }
 
-void reverseSoilMoistureCalibrationValues()
+void reverseLightCalibrationValues()
 {
   if (isDebugMode)
     Serial.println("Reversing soil moisture sensor calibration values");
@@ -447,17 +433,6 @@ int getBrightCalibrationValue()
   return value;
 }
 
-void setEEPROMIsCalibratedFlag()
-{
-  if (EEPROM.read(lightPRSensorIsCalibratedFlagAddress) != 99)
-    EEPROM.write(lightPRSensorIsCalibratedFlagAddress, 99);
-}
-
-void removeEEPROMIsCalibratedFlag()
-{
-    EEPROM.write(lightPRSensorIsCalibratedFlagAddress, 0);
-}
-
 void restoreDefaultLightPRSensorSettings()
 {
   restoreDefaultCalibrationSettings();
@@ -466,7 +441,7 @@ void restoreDefaultLightPRSensorSettings()
 
 void restoreDefaultLightPRSensorReadingIntervalSettings()
 {
-  removeEEPROMLightPRSensorReadingIntervalIsSetFlag();
+  EEPROMRemoveFlag(lightPRSensorReadIntervalIsSetFlagAddress);
 
   lightPRSensorReadingIntervalInSeconds = 5;
   serialOutputIntervalInSeconds = 5;
@@ -476,7 +451,7 @@ void restoreDefaultLightPRSensorReadingIntervalSettings()
 
 void restoreDefaultCalibrationSettings()
 {
-  removeEEPROMIsCalibratedFlag();
+  EEPROMRemoveFlag(lightPRSensorIsCalibratedFlagAddress);
 
   darkCalibrationValue = (reverseLightPRSensor ? 0 : ANALOG_MAX);
   brightCalibrationValue = (reverseLightPRSensor ? ANALOG_MAX : 0);

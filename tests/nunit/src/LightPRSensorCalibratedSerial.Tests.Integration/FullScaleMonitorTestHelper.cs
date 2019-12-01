@@ -2,55 +2,55 @@
 
 namespace LightPRSensorCalibratedSerial.Tests.Integration
 {
-	public class FullScaleMonitorTestHelper : GrowSenseHardwareTestHelper
-	{
-		public FullScaleMonitorTestHelper()
-		{
-		}
+  public class FullScaleMonitorTestHelper : GrowSenseHardwareTestHelper
+  {
+    public FullScaleMonitorTestHelper ()
+    {
+    }
 
-		public void RunFullScaleTest()
-		{
-			WriteTitleText("Starting full scale test");
+    public void RunFullScaleTest ()
+    {
+      WriteTitleText ("Starting full scale test");
 
-			ConnectDevices();
+      ConnectDevices ();
 
-			int step = 25;
+      int step = 25;
 
-			for (int i = 100; i >= 0; i -= step)
-			{
-				RunFullScaleTestSegment(i);
-			}
+      for (int i = 100; i >= 0; i -= step) {
+        RunFullScaleTestSegment (i);
+      }
 
-			for (int i = 0; i <= 100; i += step)
-			{
-				RunFullScaleTestSegment(i);
-			}
-		}
+      for (int i = 0; i <= 100; i += step) {
+        RunFullScaleTestSegment (i);
+      }
+    }
 
-		public void RunFullScaleTestSegment(int lightPercentage)
-		{
-			WriteSubTitleText("Starting full scale test segment");
+    public void RunFullScaleTestSegment (int lightPercentage)
+    {
+      WriteSubTitleText ("Starting full scale test segment");
 
-			Console.WriteLine("Light: " + lightPercentage + "%");
-			Console.WriteLine("");
+      Console.WriteLine ("Light: " + lightPercentage + "%");
+      Console.WriteLine ("");
 
-			SimulateLight(lightPercentage);
+      SimulateLight (lightPercentage);
 
-			var data = WaitForData(3); // Wait for 3 data entries to give the simulator time to stabilise
+      var data = WaitForData (3); // Wait for 3 data entries to give the simulator time to stabilise
 
-			Console.WriteLine("");
-			Console.WriteLine("Checking calibrated value");
-			Console.WriteLine("");
+      Console.WriteLine ("");
+      Console.WriteLine ("Checking calibrated value");
+      Console.WriteLine ("");
+      
+      var dataEntry = WaitForDataEntry ();
 
-			AssertDataValueIsWithinRange(data[data.Length - 1], "C", lightPercentage, CalibratedValueMarginOfError);
+      AssertDataValueIsWithinRange (dataEntry, "L", lightPercentage, CalibratedValueMarginOfError);
 
-			Console.WriteLine("");
-			Console.WriteLine("Checking raw value");
-			Console.WriteLine("");
+      Console.WriteLine ("");
+      Console.WriteLine ("Checking raw value");
+      Console.WriteLine ("");
 
-			var expectedRawValue = lightPercentage * AnalogPinMaxValue / 100;
+      var expectedRawValue = lightPercentage * AnalogPinMaxValue / 100;
 
-			AssertDataValueIsWithinRange(data[data.Length - 1], "R", expectedRawValue, RawValueMarginOfError);
-		}
-	}
+      AssertDataValueIsWithinRange (data [data.Length - 1], "R", expectedRawValue, RawValueMarginOfError);
+    }
+  }
 }
